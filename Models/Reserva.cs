@@ -15,18 +15,18 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+            // Verifica se a capacidade é maior ou igual ao número de hóspedes
+            if (Suite.Capacidade >= hospedes.Count)
             {
                 Hospedes = hospedes;
             }
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                throw new Exception($"A suíte reservada não suporta a quantidade de hóspedes informada. Capacidade da suíte: {Suite.Capacidade}. Número de hóspedes: {hospedes.Count}");
             }
+            // Adiciona os hóspedes à lista
         }
+
 
         public void CadastrarSuite(Suite suite)
         {
@@ -36,25 +36,22 @@ namespace DesafioProjetoHospedagem.Models
         public int ObterQuantidadeHospedes()
         {
             // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+            return Hospedes.Count;
         }
 
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            // Calcula o valor da diária sem desconto
+            decimal valorDiaria = DiasReservados * Suite.ValorDiaria;
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            // Aplica desconto se o número de dias reservados for maior ou igual a 10
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                decimal valorComDesconto = valorDiaria * 0.10M;
+                valorDiaria -= valorComDesconto; // Subtrai o valor do desconto do valor da diária
             }
 
-            return valor;
+            return valorDiaria;
         }
     }
 }
